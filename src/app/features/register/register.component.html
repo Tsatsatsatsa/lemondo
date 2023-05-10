@@ -1,0 +1,81 @@
+<div class="card mt-5">
+    <h4 class="card-header">Sign Up</h4>
+    <div class="card-body">
+        <form [formGroup]="registrationForm" (ngSubmit)="signUp()">
+            <div class="mb-3">
+                <label class="form-label">Email</label>
+                <input type="email" formControlName="email" class="form-control mb-2" required
+                    [ngClass]="{ 'is-invalid': (!regForm['email'].pristine && regForm['email'].errors?.['required']) ||  regForm['email'].errors?.['pattern'] || regForm['email'].errors?.['invalid'] }"
+                    required />
+                <div *ngIf="regForm['email'].errors" class="invalid-feedback">
+                    <div *ngIf="regForm['email'].errors?.['required']">Email is required</div>
+                    <div *ngIf="regForm['email'].errors?.['pattern']">Please enter valid email address</div>
+                    <div *ngIf="regForm['email'].errors?.['invalid']">That email is taken</div>
+                </div>
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Phone</label>
+                <input type="tel" formControlName="mobileNumber" class="form-control" maxlength="13"
+                    [ngClass]="{ 'is-invalid': (!regForm['mobileNumber'].pristine && regForm['mobileNumber'].errors?.['required']) ||  regForm['mobileNumber'].errors?.['pattern'] }"
+                    required />
+                <div *ngIf="regForm['mobileNumber'].errors" class="invalid-feedback">
+                    <div *ngIf="regForm['mobileNumber'].errors?.['required']">Phone number is required</div>
+                    <div *ngIf="regForm['mobileNumber'].errors?.['pattern']">Phone number must start +995 and must
+                        contain 13 numbers</div>
+                </div>
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Password</label>
+                <input type="password" formControlName="password" class="form-control"
+                    [ngClass]="{ 'is-invalid': (!regForm['password'].pristine && regForm['password'].errors?.['required']) ||  regForm['password'].errors?.['pattern'] }"
+                    required />
+                <div *ngIf="regForm['password'].errors" class="invalid-feedback">
+                    <div *ngIf="regForm['password'].errors?.['required']">Password is required</div>
+                    <div *ngIf="regForm['password'].errors?.['pattern']">Password must be 8 characters long contain
+                        only letters and numbers</div>
+                </div>
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Confirm password</label>
+                <input type="password" formControlName="confirmPassword" class="form-control"
+                    [ngClass]="{ 'is-invalid': (!regForm['confirmPassword'].pristine && regForm['confirmPassword'].errors?.['required']) ||  regForm['confirmPassword'].errors?.['pattern'] || regForm['confirmPassword'].errors?.['confirmedValidator'] }"
+                    required />
+                <div *ngIf="regForm['confirmPassword'].errors" class="invalid-feedback">
+                    <div *ngIf="regForm['confirmPassword'].errors?.['required']">Confirm password</div>
+                </div>
+                <div *ngIf="regForm['confirmPassword'].errors?.['confirmedValidator']" class="invalid-feedback d-block">
+                    Passwords do not match</div>
+
+            </div>
+            <div class="mb-3">
+                <label class="form-label">NickName</label>
+                <input type="text" formControlName="nickName" class="form-control" required
+                    [ngClass]="{ 'is-invalid': !regForm['nickName'].pristine && regForm['nickName'].errors?.['required'] || regForm['nickName'].errors?.['invalid']}"
+                    required />
+                <div *ngIf="regForm['nickName'].errors" class="invalid-feedback">
+                    <div *ngIf="regForm['nickName'].errors?.['required']">Nickname is required</div>
+                    <div *ngIf="regForm['nickName'].errors?.['invalid']">That nickname is taken</div>
+                </div>
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Website</label>
+                <input type="text" formControlName="webSite" class="form-control"
+                    [ngClass]="{ 'is-invalid': !regForm['webSite'].pristine && regForm['webSite'].errors?.['required'] }"
+                    required />
+                <div *ngIf="regForm['webSite'].errors" class="invalid-feedback">
+                    <div *ngIf="regForm['webSite'].errors?.['required']">Website is required</div>
+                </div>
+            </div>
+            <div class="mb-3">
+                <input type="checkbox" formControlName="acceptTerms" class="form-check-input me-2" required />
+                <label class="form-check-label">Accept Terms</label>
+            </div>
+            <div>
+                <button [disabled]="registrationForm.invalid" class="btn btn-primary">
+                    Sign Up
+                </button>
+                <a routerLink="../login" class="btn btn-link">Click to Login</a>
+            </div>
+        </form>
+    </div>
+</div>

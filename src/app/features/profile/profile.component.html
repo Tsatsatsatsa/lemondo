@@ -1,0 +1,82 @@
+<div class="card mt-5">
+    <h4 class="card-header">Profile</h4>
+    <div class="card-body">
+        <div *ngIf="successMessage" class="alert alert-success">
+            {{successMessage}}
+        </div>
+        <form [formGroup]="profileForm" (ngSubmit)="updateUser()">
+            <div class="mb-3">
+                <label class="form-label">Email</label>
+                <input type="email" formControlName="email" class="form-control"
+                    [ngClass]="{ 'is-invalid': (!profForm['email'].pristine && profForm['email'].errors?.['required']) ||  profForm['email'].errors?.['pattern'] || profForm['email'].errors?.['invalid'] }"
+                    required />
+                <div *ngIf="profForm['email'].errors" class="invalid-feedback">
+                    <div *ngIf="profForm['email'].errors?.['required']">Email is required</div>
+                    <div *ngIf="profForm['email'].errors?.['pattern']">Please enter valid email address</div>
+                    <div *ngIf="profForm['email'].errors?.['invalid']">That email is taken</div>
+                </div>
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Phone</label>
+                <input type="tel" formControlName="mobileNumber" class="form-control mb-3" maxlength="13"
+                    [ngClass]="{ 'is-invalid': (!profForm['mobileNumber'].pristine && profForm['mobileNumber'].errors?.['required']) ||  profForm['mobileNumber'].errors?.['pattern'] }"
+                    required />
+                <div *ngIf="profForm['mobileNumber'].errors" class="invalid-feedback">
+                    <div *ngIf="profForm['mobileNumber'].errors?.['required']">Phone number is required</div>
+                    <div *ngIf="profForm['mobileNumber'].errors?.['pattern']">Phone number must start +995 and must
+                        contain 13 numbers</div>
+                </div>
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Password</label>
+                <input type="password" formControlName="password" class="form-control"
+                    [ngClass]="{ 'is-invalid': (!profForm['password'].pristine && profForm['password'].errors?.['required']) ||  profForm['password'].errors?.['pattern'] }"
+                    required />
+                <div *ngIf="profForm['password'].errors" class="invalid-feedback">
+                    <div *ngIf="profForm['password'].errors?.['required']">Password is required</div>
+                    <div *ngIf="profForm['password'].errors?.['pattern']">Password must be 8 characters long contain
+                        only letters and numbers</div>
+                </div>
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Confirm Password</label>
+                <input type="password" formControlName="confirmPassword" class="form-control"
+                    [ngClass]="{ 'is-invalid': (!profForm['confirmPassword'].pristine && profForm['confirmPassword'].errors?.['required']) ||  profForm['confirmPassword'].errors?.['pattern'] || profForm['confirmPassword'].errors?.['confirmedValidator'] }"
+                    required />
+                <div *ngIf="profForm['confirmPassword'].errors" class="invalid-feedback">
+                    <div *ngIf="profForm['confirmPassword'].errors?.['required']">Confirm password</div>
+                </div>
+                <div *ngIf="profForm['confirmPassword'].errors?.['confirmedValidator']"
+                    class="invalid-feedback d-block">
+                    Passwords do not match</div>
+
+            </div>
+            <div class="mb-3">
+                <label class="form-label">NickName</label>
+                <input type="text" formControlName="nickName" class="form-control"
+                    [ngClass]="{ 'is-invalid': !profForm['nickName'].pristine && profForm['nickName'].errors?.['required'] || profForm['nickName'].errors?.['invalid']}"
+                    required />
+                <div *ngIf="profForm['nickName'].errors" class="invalid-feedback">
+                    <div *ngIf="profForm['nickName'].errors?.['required']">Nickname is required</div>
+                    <div *ngIf="profForm['nickName'].errors?.['invalid']">That nickname is taken</div>
+                </div>
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Website</label>
+                <input type="text" formControlName="webSite" class="form-control"
+                    [ngClass]="{ 'is-invalid': !profForm['webSite'].pristine && profForm['webSite'].errors?.['required'] }"
+                    required />
+                <div *ngIf="profForm['webSite'].errors" class="invalid-feedback">
+                    <div *ngIf="profForm['webSite'].errors?.['required']">Website is required</div>
+                </div>
+            </div>
+            <div>
+                <button [disabled]="profileForm.invalid" class="btn btn-primary">
+                    Update
+                </button>
+                <button class="btn btn-danger ms-3" (click)=deleteUser()>
+                    Delete
+                </button>
+            </div>
+        </form>
+    </div>
